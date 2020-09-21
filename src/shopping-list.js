@@ -1,5 +1,6 @@
-import store from './store.js';
-import item from './item.js';
+import $ from 'jquery';
+
+import store from './store';
 
 const generateItemElement = function (item) {
   let itemTitle = `<span class="shopping-item shopping-item__checked">${item.name}</span>`;
@@ -54,14 +55,6 @@ const handleNewItemSubmit = function () {
   });
 };
 
-const handleItemCheckClicked = function () {
-  $('.js-shopping-list').on('click', '.js-item-toggle', event => {
-    const id = getItemIdFromElement(event.currentTarget);
-    store.findAndToggleChecked(id);
-    render();
-  });
-};
-
 const getItemIdFromElement = function (item) {
   return $(item)
     .closest('.js-item-element')
@@ -90,6 +83,14 @@ const handleEditShoppingItemSubmit = function () {
   });
 };
 
+const handleItemCheckClicked = function () {
+  $('.js-shopping-list').on('click', '.js-item-toggle', event => {
+    const id = getItemIdFromElement(event.currentTarget);
+    store.findAndToggleChecked(id);
+    render();
+  });
+};
+
 const handleToggleFilterClick = function () {
   $('.js-filter-checked').click(() => {
     store.toggleCheckedFilter();
@@ -104,7 +105,6 @@ const bindEventListeners = function () {
   handleEditShoppingItemSubmit();
   handleToggleFilterClick();
 };
-
 // This object contains the only exposed methods from this module:
 export default {
   render,
